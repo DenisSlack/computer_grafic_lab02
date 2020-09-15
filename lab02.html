@@ -1,0 +1,39 @@
+<HTML>
+<BODY>
+	
+<canvas width='2800' height='1000' id='hw02'>
+</canvas>
+
+<script>
+
+	var canvas = document.getElementById('hw02');
+	var ctx = canvas.getContext('2d');
+
+	let img = new Image;
+	img.crossOrigin = 'My president';
+	img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Vladimir_Putin_April_2020_%28cropped%29.jpg/210px-Vladimir_Putin_April_2020_%28cropped%29.jpg';
+
+	img.onload = function() {
+	ctx.drawImage(img, 0, 0, img.width, img.height);
+	let img_data = ctx.getImageData(0,0, img.width, img.height);
+	var r, g, b, gs;
+
+	for (var i = 0; i < img_data.data.length; i += 4) {
+
+		r = img_data.data[i]; 
+		g = img_data.data[i + 1]; 
+		b = img_data.data[i + 2]; 
+		gs = ( r + g + b ) / 3;
+		img_data.data[i] = gs; 
+		img_data.data[i + 1] = gs;
+		img_data.data[i + 2] = gs;
+	}
+
+	ctx.putImageData(img_data, img.width + 25, 0);
+	};
+	
+
+</script>
+
+</BODY>
+</HTML>
